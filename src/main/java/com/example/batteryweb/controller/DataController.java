@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -84,8 +86,18 @@ public class DataController {
 
     @RequestMapping("/battery/tsdb/{id}")
     public Map<String, Object> tsdb(@PathVariable("id") String id) {
-        String measurepoints = "current,voltage,temp";
-        GetDataResponse resp = dataService.getHistoryData(id, measurepoints);
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date nowTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowTime);
+        calendar.add(Calendar.DATE, -1);
+        Date oneHourBefore=calendar.getTime();
+
+        String startTime = fmt.format(oneHourBefore);
+        String endTime = fmt.format(nowTime);
+        GetDataResponse resp = dataService.getHistoryData(id, startTime, endTime);
+
 
         // Reformat returned data for front-end display
         Map<String, Object> result = new HashMap<>();
@@ -97,6 +109,7 @@ public class DataController {
         result.put("temp", temp);
 
         Set<String> time = new HashSet<>();
+        String measurepoints = "voltage,current,temp";
         for(Map<String, Object> items: resp.getData().getItems()){
             for (String point: measurepoints.split(",")) {
                 if (items.containsKey(point)) {

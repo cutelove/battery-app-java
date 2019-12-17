@@ -85,7 +85,7 @@ public class DataService {
         return getResponse(request, GetDataResponse.class);
     }
 
-    public GetDataResponse getHistoryData(String assetId, String measurepoints) {
+    public GetDataResponse getHistoryData(String assetId, String startTime, String endTime) {
         IPoseidonRequest request = new PoseidonRequest() {
             @Override
             public String baseUri() {
@@ -101,18 +101,12 @@ public class DataService {
             public Map<String, Object> queryParams() {
                 Map<String, Object> params = new HashMap();
                 params.put("assetIds", assetId);
+
+                String measurepoints = "voltage,current,temp";
                 params.put("measurepoints", measurepoints);
 
-                DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Date nowTime = new Date();
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(nowTime);
-                calendar.add(Calendar.DATE, -1);
-                Date startTime=calendar.getTime();
-
-                params.put("startTime", fmt.format(startTime));
-                params.put("endTime", fmt.format(nowTime));
+                params.put("startTime", startTime);
+                params.put("endTime", endTime);
                 params.put("orgId", config.orgId);
                 return params;
             }
