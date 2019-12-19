@@ -125,7 +125,7 @@ function tsdb_chart_initialize(id) {
             bottom: '40',
             algin: 'center',
             icon: 'line',
-            data: ['电压', '电流', '温度']
+            data: ['Voltage', 'Current', 'Temperature']
         },
         xAxis: [{
             gridIndex: 0,
@@ -154,8 +154,8 @@ function tsdb_chart_initialize(id) {
             gridIndex: 0,
             type: 'value',
             name: 'V',
-            min: 0,
-            max: 50,
+            min: -10,
+            max: 40,
             position: 'left',
             offset: 50,
             nameTextStyle: {
@@ -190,8 +190,8 @@ function tsdb_chart_initialize(id) {
             gridIndex: 0,
             type: 'value',
             name: 'A',
-            min: 0,
-            max: 50,
+            min: -10,
+            max: 40,
             position: 'left',
             splitLine: { show: false },
             nameTextStyle: {
@@ -227,8 +227,8 @@ function tsdb_chart_initialize(id) {
             gridIndex: 0,
             type: 'value',
             name: '℃',
-            min: 0,
-            max: 100,
+            min: -10,
+            max: 90,
             position: 'right',
             splitLine: { show: false },
             nameTextStyle: {
@@ -265,7 +265,7 @@ function tsdb_chart_initialize(id) {
             {
                 xAxisIndex: 0,
                 yAxisIndex: 0,
-                name: '电压',
+                name: 'Voltage',
                 type: 'line',
                 smooth: true,
                 // symbol: 'none',
@@ -279,7 +279,7 @@ function tsdb_chart_initialize(id) {
             }, {
                 xAxisIndex: 0,
                 yAxisIndex: 1,
-                name: '电流',
+                name: 'Current',
                 type: 'line',
                 // symbol: 'none',
                 smooth: true,
@@ -287,7 +287,7 @@ function tsdb_chart_initialize(id) {
             }, {
                 xAxisIndex: 0,
                 yAxisIndex: 2,
-                name: '温度',
+                name: 'Temperature',
                 type: 'line',
                 // symbol: 'none',
                 smooth: true,

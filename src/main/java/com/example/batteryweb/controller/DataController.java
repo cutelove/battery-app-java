@@ -71,7 +71,7 @@ public class DataController {
             }
             double capacity = (double)asset.getData().getAttributes().get("Capacity");
             if (item.containsKey("accumulating_power")) {
-                int power = (int)item.get("accumulating_power");
+                double power = (double)item.get("accumulating_power");
                 remaining_power = Double.parseDouble(String.format("%.0f%%", (100*power/capacity)));
             }
         }
@@ -86,12 +86,12 @@ public class DataController {
 
     @RequestMapping("/battery/tsdb/{id}")
     public Map<String, Object> tsdb(@PathVariable("id") String id) {
-        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        fmt.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
         Date nowTime = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(nowTime);
-        calendar.add(Calendar.DATE, -1);
+        calendar.add(Calendar.HOUR, -1);
         Date oneHourBefore=calendar.getTime();
 
         String startTime = fmt.format(oneHourBefore);

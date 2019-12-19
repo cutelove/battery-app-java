@@ -15,23 +15,23 @@
   <div class="sideBar">
     <img class="logo" src="img/EnOS_logo.png" alt="Cinque Terre">
     <div>
-      <label for="id_bat_list" class="batlist">电池设备:</label>
+      <label for="id_bat_list" class="batlist">Battery Devices:</label>
       <ul class="nav nav-pills flex-column" id="id_bat_list">
       </ul>
     </div>
   </div>
   <div class="content">
     <div class="form-group">
-      <label for="sel1">数据上报速率</label>
+      <label for="sel1">Data Upload Frequency</label>
       <!-- Single button -->
       <div class="btn-group">
         <button type="button" id='select' class="btn select btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
-          正常速率-5秒 <span class="caret"></span>
+          Normal-5s <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li class="select-option" value='5' data='正常速率-30秒' >正常速率-5秒</li>
-          <li class="select-option" value='2' data='高频上报-10秒'>高频上报-2秒</li>
+          <li class="select-option" value='5' data='Normal-5s' >Normal-5s</li>
+          <li class="select-option" value='2' data='High Frequency-2s'>High Frequency-2s</li>
         </ul>
       </div>
     </div>
@@ -42,19 +42,19 @@
     <div class='ass_detail' >
       <div class="healthchart">
         <div id="id_healthchart" style="width: 150px;height:150px;"></div>
-        <span class="healthchart-title">综合健康评分</span>
+        <span class="healthchart-title">Healthiness Score</span>
         <div class="fraction">
           <span id='fraction_per' class="fraction_per"></span>
-          <span class="fraction_unit">分</span>
+          <span class="fraction_unit">points</span>
         </div>
-
-
-
+       
+          
+       
       </div>
-
+      
 
         <div class="bg-light" >
-          <span style="font-size: 14px;">剩余电量</span>
+          <span style="font-size: 14px;">Remaining Power</span>
           <span class='health-info powerPer' id='id_powerPer'></span>
           <div class="progress" id="id_remaining_power"></div>
         </div>
@@ -64,16 +64,16 @@
           <span></span>
         </div>
         <div class="bg-light">
-          <span>温度上限</span>
+          <span>Temperature Upper Limit</span>
           <span class='health-info' id="id_asset_temp_limit" ></span>
           <span></span>
         </div>
         <div class="bg-light">
-          <span>电池容量</span>
+          <span>Capacity</span>
           <span class='health-info' id="id_asset_capacity"></span>
         </div>
         <div class="bg-light">
-          <span>时区</span>
+          <span>Timezone</span>
           <span class='health-info' id="id_asset_timezone"></span>
         </div>
     </div>
@@ -81,15 +81,15 @@
       <div id="id_tsdbchart" style="width: 100%;height:300px; float: left;"></div>
     </div>
     <div class="alarm_info">
-      <span class="alarm_info_title">告警信息</span>
+      <span class="alarm_info_title">Alerts</span>
       <table class='table table-sm' id='id_alerts_table'>
         <thead class='bg-light'>
-          <th>资产名称</th>
+          <th>Asset Name</th>
           <th>Asset ID</th>
           <th>Event ID</th>
-          <th>告警级别</th>
-          <th>告警内容</th>
-          <th>告警时间</th>
+          <th>Alert Severity</th>
+          <th>Alert Content</th>
+          <th>Occurring Time</th>
         </thead>
         <tbody>
           <tr></tr>
@@ -115,8 +115,8 @@
         $('#id_asset_id').text(data.data.assetId);
         $('#id_asset_model').text(data.data.modelId);
         $('#id_asset_timezone').text(data.data.timezone);
-        $('#id_asset_capacity').text(data.data.attributes.Capacity);
-        $('#id_asset_temp_limit').text(data.data.attributes.UpperLimitTemp);
+        $('#id_asset_capacity').text(data.data.attributes.Capacity+" Ah");
+        $('#id_asset_temp_limit').text(data.data.attributes.UpperLimitTemp+" °C");
         $('#id_battery_desc').text(data.data.description);
         $('#id_battery_name').text(data.data.name.defaultValue);
       }
@@ -186,7 +186,7 @@
           }else{
             str = 'success'
           }
-
+          
           var table_row_html = "<tr><td>" + ll[i].assetName + "</td><td>" + ll[i].assetId +
             "</td><td>" + ll[i].eventId.slice(0, 15) + "</td><td class='alerts_grade'><i class="+str+"></i>" + ll[i].severityDesc.defaultValue +
             "</td><td>" + ll[i].contentDesc.defaultValue +
@@ -226,7 +226,7 @@
           $('#id_bat_list').append(itemHtml);
           g_assetId_list.push(bat_list[i].assetId)
         }
-
+        
         if (g_current_selected_index >= 0) {
           $(".nav-link").click(function () {
             var slected_index = parseInt($(this).attr('data-index'));
@@ -260,7 +260,7 @@
         alert("获取电池设备列表出错")
       }
     });
-
+    
     $('.select-option').click(function(){
       $('#select').text($(this).text())
 
@@ -277,6 +277,6 @@
       });
     });
   });
-
+  
 </script>
 </html>
