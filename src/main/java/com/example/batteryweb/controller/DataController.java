@@ -63,7 +63,7 @@ public class DataController {
         GetDataResponse data = dataService.getData(id, "health_level,accumulating_power");
 
         int health_level=0;
-        double remaining_power = 0;
+        String remaining_power="";
 
         for (Map<String, Object> item: data.getData().getItems()) {
             if (item.containsKey("health_level")) {
@@ -71,8 +71,8 @@ public class DataController {
             }
             double capacity = (double)asset.getData().getAttributes().get("Capacity");
             if (item.containsKey("accumulating_power")) {
-                double power = (double)item.get("accumulating_power");
-                remaining_power = Double.parseDouble(String.format("%.0f%%", (100*power/capacity)));
+                Number power = (Number)item.get("accumulating_power");
+                remaining_power = String.format("%.0f%%", (100*power.intValue()/capacity));
             }
         }
 

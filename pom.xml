@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>battery-web</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
 	<name>battery-web</name>
 	<description>demo project for spring boot</description>
 
