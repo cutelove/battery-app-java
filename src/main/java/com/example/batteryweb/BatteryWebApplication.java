@@ -10,4 +10,5 @@ public class BatteryWebApplication {
 		SpringApplication.run(BatteryWebApplication.class, args);
 	}
 
+
 }
